@@ -2,11 +2,11 @@ import {BsFilterLeft} from 'react-icons/bs'
 
 import './index.css'
 
-const RestaurantsHeader = props => {
-  const {activeOptionId, sortByOptions, updateActiveOptionId} = props
+const RestaurantHeader = props => {
+  const {sortOption, sortByOptions, updateOption} = props
 
-  const onChangeSortBy = event => {
-    updateActiveOptionId(event.target.value)
+  const onChangeSort = event => {
+    updateOption(event.target.value)
   }
 
   return (
@@ -21,9 +21,9 @@ const RestaurantsHeader = props => {
           <BsFilterLeft size={20} />
           <p className="sort-text">Sort By</p>
           <select
-            value={activeOptionId}
+            value={sortOption}
             className="select-options"
-            onChange={onChangeSortBy}
+            onChange={onChangeSort}
           >
             {sortByOptions.map(eachOption => (
               <option
@@ -41,4 +41,4 @@ const RestaurantsHeader = props => {
   )
 }
 
-export default RestaurantsHeader
+export default RestaurantHeader

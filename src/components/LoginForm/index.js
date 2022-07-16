@@ -8,7 +8,7 @@ class LoginForm extends Component {
   state = {
     username: '',
     password: '',
-    showErrorMessage: false,
+    showSubmitError: false,
     errorMsg: '',
   }
 
@@ -23,12 +23,15 @@ class LoginForm extends Component {
   onSubmitSuccess = jwtToken => {
     const {history} = this.props
 
-    Cookies.set('jwt_token', jwtToken, {expires: 30})
-    history.replace('/')
+    Cookies.set('jwt_token', jwtToken, {
+      expires: 30,
+      path: '/',
+    })
+    history.replace('/login')
   }
 
   onSubmitFailure = errorMsg => {
-    this.setState({showErrorMessage: true, errorMsg})
+    this.setState({showSubmitError: true, errorMsg})
   }
 
   submitForm = async event => {
@@ -42,8 +45,6 @@ class LoginForm extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
-    console.log(data)
-
     if (response.ok === true) {
       this.onSubmitSuccess(data.jwt_token)
     } else {
@@ -88,7 +89,7 @@ class LoginForm extends Component {
   }
 
   render() {
-    const {showErrorMessage, errorMsg} = this.state
+    const {showSubmitError, errorMsg} = this.state
     const jwtToken = Cookies.get('jwt_token')
     if (jwtToken !== undefined) {
       return <Redirect to="/" />
@@ -96,14 +97,14 @@ class LoginForm extends Component {
     return (
       <div className="login-form-container">
         <img
-          src="https://res.cloudinary.com/djfaxrxbf/image/upload/v1655376643/Rectangle_1457_ao1o1h.png"
+          src="https://res.cloudinary.com/dkobk5oao/image/upload/v1633587041/Rectangle_1457_xkvsxy.png"
           className="login-website-logo-mobile-image"
           alt="website logo"
         />
         <div className="login-container">
           <form className="form-container" onSubmit={this.submitForm}>
             <img
-              src="https://res.cloudinary.com/djfaxrxbf/image/upload/v1655535478/Frame_274_vdrxxk.png"
+              src="https://res.cloudinary.com/dkobk5oao/image/upload/v1633608363/Frame_274_mqin4h.png"
               className="login-website-logo-desktop-image"
               alt="website logo"
             />
@@ -114,11 +115,11 @@ class LoginForm extends Component {
             <button type="submit" className="login-button">
               Login
             </button>
-            {showErrorMessage && <p className="error-message">*{errorMsg}</p>}
+            {showSubmitError && <p className="error-message">*{errorMsg}</p>}
           </form>
         </div>
         <img
-          src="https://res.cloudinary.com/djfaxrxbf/image/upload/v1655535595/Rectangle_1456_vhdvwt.png"
+          src="https://res.cloudinary.com/dkobk5oao/image/upload/v1633529531/Rectangle_1456_t19ink.png"
           className="login-image"
           alt="website login"
         />

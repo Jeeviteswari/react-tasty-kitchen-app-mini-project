@@ -2,11 +2,10 @@ import {Component} from 'react'
 
 import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
-import {FaStar, FaRupeeSign} from 'react-icons/fa'
-import FoodItemCard from '../FoodItemCard'
-
 import Header from '../Navbar'
 import Footer from '../Footer'
+import RestaurantBanner from '../RestaurantBanner'
+import FoodItemCard from '../FoodItemCard'
 
 import './index.css'
 
@@ -26,7 +25,6 @@ class RestaurantDetails extends Component {
     const {match} = this.props
     const {params} = match
     const {id} = params
-
     const jwtToken = Cookies.get('jwt_token')
     const url = `https://apis.ccbp.in/restaurants-list/${id}`
     const options = {
@@ -37,9 +35,7 @@ class RestaurantDetails extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
-    console.log(data)
-
-    const updatedData = {
+    const restaurantData = {
       costForTwo: data.cost_for_two,
       cuisine: data.cuisine,
       foodItems: data.food_items,
@@ -52,7 +48,6 @@ class RestaurantDetails extends Component {
       rating: data.rating,
       reviewsCount: data.reviews_count,
     }
-
     const foodItems = data.food_items.map(eachFoodItem => ({
       cost: eachFoodItem.cost,
       foodType: eachFoodItem.food_type,
@@ -61,9 +56,8 @@ class RestaurantDetails extends Component {
       name: eachFoodItem.name,
       rating: eachFoodItem.rating,
     }))
-
     this.setState({
-      restaurantData: updatedData,
+      restaurantData,
       foodItemsList: foodItems,
       isLoading: false,
     })
@@ -71,52 +65,14 @@ class RestaurantDetails extends Component {
 
   renderRestaurantDetails = () => {
     const {restaurantData, foodItemsList} = this.state
-    const {
-      imageUrl,
-      name,
-      cuisine,
-      location,
-      rating,
-      reviewsCount,
-      costForTwo,
-    } = restaurantData
     return (
       <>
-        <div className="banner-bg">
-          <div className="banner-container">
-            <img src={imageUrl} alt="restaurant" className="res-image" />
-            <div className="res-info">
-              <h1 className="res-name">{name}</h1>
-              <p className="res-cuisine">{cuisine}</p>
-              <p className="res-location">{location}</p>
-              <div className="rating-rate-container">
-                <div className="rating-container">
-                  <p className="rating">
-                    <FaStar />
-                    {rating}
-                  </p>
-                  <p className="sub-text">{reviewsCount}+ Ratings</p>
-                </div>
-                <hr className="separation-line" />
-                <div className="rating-container">
-                  <p className="rating">
-                    <FaRupeeSign />
-                    {costForTwo}
-                  </p>
-                  <p className="sub-text">Cost for two</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <ul className="food-items-list">
-            {foodItemsList.map(eachItem => (
-              <FoodItemCard foodItem={eachItem} key={eachItem.id} />
-            ))}
-          </ul>
-        </div>
+        <RestaurantBanner restaurantData={restaurantData} />
+        <ul className="food-items-list">
+          {foodItemsList.map(eachItem => (
+            <FoodItemCard foodItem={eachItem} key={eachItem.id} />
+          ))}
+        </ul>
       </>
     )
   }

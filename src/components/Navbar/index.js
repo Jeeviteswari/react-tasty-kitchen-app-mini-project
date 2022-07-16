@@ -2,9 +2,11 @@ import {Link, withRouter} from 'react-router-dom'
 
 import {GiHamburgerMenu} from 'react-icons/gi'
 import {AiOutlineCloseCircle} from 'react-icons/ai'
-import Popup from 'reactjs-popup'
 
 import Cookies from 'js-cookie'
+
+import Popup from 'reactjs-popup'
+
 import CartContext from '../../context/CartContext'
 
 import './index.css'
@@ -35,9 +37,9 @@ const Navbar = props => {
 
         return (
           <>
-            {cartItemsCount > 0 ? (
+            {cartItemsCount > 0 && (
               <span className="cart-count-badge">{cartList.length}</span>
-            ) : null}
+            )}
           </>
         )
       }}
@@ -67,7 +69,8 @@ const Navbar = props => {
 
           <Link to="/cart" className="nav-link">
             <li className="nav-menu-item" style={{color: getColor('/cart')}}>
-              Cart {renderCartItemsCount()}
+              Cart
+              {renderCartItemsCount()}
             </li>
           </Link>
           <li>
@@ -80,7 +83,6 @@ const Navbar = props => {
             </button>
           </li>
         </ul>
-
         <Popup
           trigger={
             <button type="button" className="hamburger-btn">
@@ -101,7 +103,8 @@ const Navbar = props => {
                     className="nav-menu-item"
                     style={{color: getColor('/cart')}}
                   >
-                    Cart {renderCartItemsCount()}
+                    Cart
+                    {renderCartItemsCount()}
                   </p>
                 </Link>
                 <button

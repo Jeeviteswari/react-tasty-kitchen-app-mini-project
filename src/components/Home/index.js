@@ -1,7 +1,7 @@
-import {Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
+import {Redirect} from 'react-router-dom'
 
-import Navbar from '../Navbar'
+import Header from '../Navbar'
 import Carousel from '../Carousel'
 import PopularRestaurants from '../PopularRestaurants'
 import Footer from '../Footer'
@@ -16,7 +16,7 @@ const Home = () => {
 
   return (
     <>
-      <Navbar />
+      <Header />
       <div className="home-container">
         <Carousel />
         <PopularRestaurants />

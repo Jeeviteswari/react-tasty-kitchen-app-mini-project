@@ -1,7 +1,7 @@
 import {Component} from 'react'
 import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
 
-import Login from './components/LoginForm'
+import LoginForm from './components/LoginForm'
 import NotFound from './components/NotFound'
 import Home from './components/Home'
 import RestaurantDetails from './components/RestaurantDetails'
@@ -60,11 +60,11 @@ class App extends Component {
         }),
       }))
     } else {
-      this.DeleteCartItem(id)
+      this.removeCartItem(id)
     }
   }
 
-  DeleteCartItem = id => {
+  removeCartItem = id => {
     const {cartList} = this.state
     const updatedCartList = cartList.filter(
       eachCartItem => eachCartItem.id !== id,
@@ -105,14 +105,14 @@ class App extends Component {
           value={{
             cartList,
             addCartItem: this.addCartItem,
-            DeleteCartItem: this.deleteCartItem,
+            removeCartItem: this.removeCartItem,
             incrementCartItemQuantity: this.incrementCartItemQuantity,
             decrementCartItemQuantity: this.decrementCartItemQuantity,
             removeAllCartItems: this.removeAllCartItems,
           }}
         >
           <Switch>
-            <Route exact path="/login" component={Login} />
+            <Route exact path="/login" component={LoginForm} />
             <ProtectedRoute exact path="/" component={Home} />
             <ProtectedRoute
               exact

@@ -11,7 +11,7 @@ const Footer = () => (
   <div className="footer-container">
     <div className="logo-container">
       <img
-        src="https://res.cloudinary.com/djfaxrxbf/image/upload/v1655545720/Frame_275_vewfmg.png"
+        src="https://res.cloudinary.com/dkobk5oao/image/upload/v1633661337/Frame_275_quuhwq.png"
         alt="website-footer-logo"
         className="logo"
       />

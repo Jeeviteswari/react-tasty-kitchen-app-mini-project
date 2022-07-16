@@ -1,12 +1,12 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
-import Loader from 'react-loader-spinner'
 import Slider from 'react-slick'
+import Loader from 'react-loader-spinner'
 import './index.css'
 
 class Carousel extends Component {
   state = {
-    carouselsList: [],
+    offersList: [],
     isLoading: false,
   }
 
@@ -26,13 +26,11 @@ class Carousel extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
-    console.log(data)
-
-    const updatedData = data.offers.map(eachOffer => ({
-      id: eachOffer.id,
-      imageUrl: eachOffer.image_url,
+    const updatedData = data.offers.map(eachItem => ({
+      id: eachItem.id,
+      imageUrl: eachItem.image_url,
     }))
-    this.setState({carouselsList: updatedData, isLoading: false})
+    this.setState({offersList: updatedData, isLoading: false})
   }
 
   renderCarousel = () => {
@@ -45,11 +43,11 @@ class Carousel extends Component {
       autoplay: true,
       autoplaySpeed: 2000,
     }
-    const {carouselsList} = this.state
+    const {offersList} = this.state
     return (
       <ul className="carousel-container">
         <Slider {...settings} className="carousal">
-          {carouselsList.map(eachImage => (
+          {offersList.map(eachImage => (
             <li key={eachImage.id}>
               <img
                 src={eachImage.imageUrl}

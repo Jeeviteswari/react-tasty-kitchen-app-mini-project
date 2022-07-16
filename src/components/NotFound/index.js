@@ -1,14 +1,14 @@
 import {Link} from 'react-router-dom'
-import Navbar from '../Navbar'
+import Header from '../Navbar'
 
 import './index.css'
 
 const NotFound = () => (
   <>
-    <Navbar />
+    <Header />
     <div className="not-found-container">
       <img
-        src="https://res.cloudinary.com/djfaxrxbf/image/upload/v1655554960/PageNotFound_yq25ut.png"
+        src="https://res.cloudinary.com/dkobk5oao/image/upload/v1633714179/erroring_1_arx7dt.png"
         alt="not found"
         className="not-found-image"
       />
